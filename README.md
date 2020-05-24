@@ -1,30 +1,53 @@
-# Keyclock React Demo
+# Keycloak React Demo
 
-Uses Docker image from https://registry.hub.docker.com/r/jboss/keycloak#!
+A Docker-based Keycloak demo service provides authentications for this React demo. 
 
-## Keycloak Docker Image
++ The demo access token has a five-minute lifetime. 
++ The refresh token lives for 30 minutes.
++ A React demo session updates its tokens evey 29 minutes.
 
-+ Port `8080`
+Try it:
+
++ Run the demo Keycloak server from its _dockerhub_ image: `docker run -p 8080:8080 mauget/keycloak` 
++ Update node_modules from this project's root: `yarn install`
++ Access the React app: http://localhost:3000 
++ Login as `joe` / `password`
++ Check the Keycloak admin console at http://localhost:8080 - `admin` / `password` 
+
+Details ...
+
+## Keycloak Demo Image
+
+The _dockerhub_ demo Keycloak image can base a container having an
+admin user and two client users.
+
+### Create a  Container:
+
+`docker run -p 8080:8080 mauget/keycloak`
+
+### Supplied Admin User
 + Admin user `admin`
-+ Admin password `password`
++ admin password `password`
 
-Create the Keycloak container:
+### Supplied Client Users
++ `joe` / `password`
++ `mauget` / `password`
 
-`docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=password -p 8080:8080 jboss/keycloak`
+### Administration
 
 Log in as user `admin` to [http://localhost:8080](http://localhost:8080) 
 
-In the Keycloak admin console, create a realm and a client within that app:
+The image defines a realm and clientId:
 
 + realm `keycloak-demo`
 + clientId `react-client`
 
-1. Create `react-client` in the new `keycloak-demo` realm' `Clients` panel. 
+Check the following settings
+1. A `react-client` in the  `keycloak-demo` realm' `Clients` panel. 
 2. Click on `react-client`.
-3. Set **Valid Redirect URIs** to  `*`
-4. set **Web Origins** to `*`  (you would be specific for production - this is a demo)
-5. Click on **Users** in the sidebar
-6. Create user, giving it a demo password
+3. Verify **Valid Redirect URIs** set to  `*`
+4. Verify **Web Origins** set to `*`  (shuould be specific for production - this is a demo)
+5. Click on **Users** in the sidebar; look at the users
 
 
 ---------
@@ -56,43 +79,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
